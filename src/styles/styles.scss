@@ -1,0 +1,33 @@
+$primary: #1e375a;
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 700px;
+  width: 700px;
+  font-family: "Lato", sans-serif;
+}
+
+.inputwindow {
+  width: 300px;
+  position: relative;
+  text-align: center;
+  img {
+    position: absolute;
+    height: 50px;
+    top: 0px;
+    left: 0px;
+  }
+  .inputtext {
+    width: 50%;
+  }
+  .inputbtn {
+    width: 30%;
+  }
+  input {
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@import "~bulma/bulma.sass";
