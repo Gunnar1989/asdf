@@ -27,7 +27,7 @@ export default function InputText() {
   };
   const query = async code => {
     axios
-      .post(`http://127.0.0.1:8000/query.php?accessID=${code}`, {
+      .post(`http://34.89.13.107/query.php?accessID=${code}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
