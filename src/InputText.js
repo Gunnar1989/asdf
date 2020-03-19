@@ -54,24 +54,22 @@ export default function InputText() {
 
   return (
     <div className="">
-      {!url && (
-        <div className="inputwindow box has-background-primary">
-          <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
-          <input
-            className="input inputtext"
-            type="text"
-            placeholder="Enter Code"
-            onChange={e => handleChange(e.target.value)}
-          />
-          <br />
-          <input
-            className="input inputbtn"
-            type="button"
-            value="Next"
-            onClick={async () => await query(code)}
-          />
-        </div>
-      )}
+      <div className="inputwindow box has-background-primary">
+        <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
+        <input
+          className="input inputtext"
+          type="text"
+          placeholder="Enter Code"
+          onChange={e => handleChange(e.target.value)}
+        />
+        <br />
+        <input
+          className="input inputbtn"
+          type="button"
+          value="Next"
+          onClick={async () => await query(code)}
+        />
+      </div>
       {url && <ReactPlayer url={url} controls playing />}
     </div>
   );
