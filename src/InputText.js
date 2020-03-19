@@ -27,7 +27,7 @@ export default function InputText() {
   };
   const query = async code => {
     axios
-      .post(`http://34.89.13.107/code/query.php?accessID=${code}`, {
+      .post(`https://www.vitasim.dk/helloworld/query.php?accessID=${code}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
