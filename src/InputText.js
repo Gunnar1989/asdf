@@ -40,7 +40,7 @@ export default function InputText() {
         const storage = firebase.storage();
         await storage
           .ref("/")
-          .child(res.data.storageID + "." + res.data.filetype)
+          .child(res.data.storageID + res.data.filetype)
           .getDownloadURL()
           .then(url => {
             console.log(url);
