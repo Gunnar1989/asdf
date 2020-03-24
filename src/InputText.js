@@ -32,8 +32,11 @@ export default function InputText() {
     }
   };
   const query = async code => {
+    setUrl();
+    console.log("hello");
+
     axios
-      .post(`https://www.vitasim.dk/helloworld/query.php?accessID=${code}`, {
+      .post(`https://vitasim.dk/helloworld/query.php?accessID=${code}`, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -48,43 +51,50 @@ export default function InputText() {
           .child(res.data.storageID + res.data.filetype)
           .getDownloadURL()
           .then(url => {
-            console.log(url);
             setUrl(url);
+            setError();
           })
           .catch(err => {
-            console.log("Error finding user", err);
+            console.log("Error: " + err);
             setError(err);
           });
+      })
+      .catch(err => {
+        setError("Video Not Found");
+        console.log("Error: " + err);
       });
   };
 
   return (
-    <div className="boxcenter">
-      <div className="inputwindow has-background-primary">
-        <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
+    <div className="inputwindow has-background-primary  ">
+      <div className="top ">
         <input
-          className="input inputtext"
+          className="input inputtext "
           type="text"
-          placeholder="Enter Code"
+          placeholder="Code"
           onKeyPress={e => _handleKeyDown(e)}
           onChange={e => handleChange(e.target.value)}
         />
-        <br />
-        <div className="tooltip"></div>
         <input
-          className="input inputbtn"
+          className="inputbtn button is-danger"
           type="button"
-          value="Next"
+          value="Play"
           onClick={async () => await query(code)}
         />
       </div>
-      {url && <ReactPlayer url={url} controls playing />}
-      {error && (
-        <div>
-          <p>Sorry Video not found.</p>
-          <p>{error}</p>
-        </div>
-      )}
+      <div className="has-background-primary content">
+        {url && !error ? (
+          <ReactPlayer url={url} id="video" controls playing />
+        ) : (
+          <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
+        )}
+        {error != "" && (
+          <div>
+            <p className="titletext">Sorry Video not found.</p>
+            <p></p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
