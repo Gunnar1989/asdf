@@ -33,6 +33,7 @@ export default function InputText() {
   };
   const query = async code => {
     setUrl();
+    setError();
     console.log("hello");
 
     axios
@@ -86,13 +87,10 @@ export default function InputText() {
         {url && !error ? (
           <ReactPlayer url={url} id="video" controls playing />
         ) : (
-          <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
-        )}
-        {error != "" && (
-          <div>
-            <p className="titletext">Sorry Video not found.</p>
-            <p></p>
-          </div>
+          <>
+            <p className="titletext">{error}</p>
+            <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
+          </>
         )}
       </div>
     </div>
