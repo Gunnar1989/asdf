@@ -1,0 +1,21 @@
+server {
+   server_name 34.89.13.107 video.vitasim.dk www.video.vitasim.dk;
+   root /home/vitasim/build;
+   index index.html index.htm;
+   location / {
+   try_files $uri /index.html =404;
+   }
+   listen 443 ssl; # managed by Certbot
+
+    # RSA certificate
+    ssl_certificate /etc/letsencrypt/keys/video.vitasim.dk/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/keys/video.vitasim.dk/privkey.pem; # managed by Certbot
+
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  
+}
+
+
+sudo nano /etc/nginx/sites-available/vitasim
+
+Knowledge/Skills/Competencies: - To learn to work in a team that is in different locations - To learn front end web development - To implement CMS from scratch - How to use Single Page Frameworks - Understand the business domain - Requirements analysis for a new CMS system - Version control Personal Development: Work with people from a different educational background To experience what it is like too work in a Startup and see if I might want to pursue that in the future To be working with the company and not for the company. Career Awareness: To see if I want to pursue a career as a programmer or go for masters To see if I want to continue to work in Denmark after I graduate. Identify other aspects I might want to focus on for my final project. To see if I have the skills to start working full time.

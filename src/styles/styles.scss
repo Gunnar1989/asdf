@@ -3,15 +3,17 @@ $primary: #1e375a;
 body {
   margin: 0;
   padding: 0;
-  height: 700px;
-  width: 700px;
   font-family: "Lato", sans-serif;
 }
 
+.boxcenter {
+  text-align: center;
+}
 .inputwindow {
+  display: inline-block;
   width: 300px;
   position: relative;
-  text-align: center;
+
   img {
     position: absolute;
     height: 50px;
@@ -21,6 +23,7 @@ body {
   .inputtext {
     width: 50%;
   }
+
   .inputbtn {
     width: 30%;
   }

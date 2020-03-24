@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as AUTH from "./data/Use-Auth";
 import ReactPlayer from "react-player";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -20,17 +19,23 @@ const firebaseConfig = {
 
 export default function InputText() {
   const [code, setCode] = useState("");
-  const [show, setShow] = useState(false);
   const [url, setUrl] = useState("");
+  const [error, setError] = useState("");
   const handleChange = text => {
     setCode(text);
+  };
+  const _handleKeyDown = e => {
+    if (e.key === "Enter") {
+      query(code);
+    } else {
+      return;
+    }
   };
   const query = async code => {
     axios
       .post(`https://www.vitasim.dk/helloworld/query.php?accessID=${code}`, {
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
+          "Content-Type": "application/json"
         }
       })
       .then(async res => {
@@ -48,21 +53,24 @@ export default function InputText() {
           })
           .catch(err => {
             console.log("Error finding user", err);
+            setError(err);
           });
       });
   };
 
   return (
-    <div className="">
-      <div className="inputwindow box has-background-primary">
+    <div className="boxcenter">
+      <div className="inputwindow has-background-primary">
         <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
         <input
           className="input inputtext"
           type="text"
           placeholder="Enter Code"
+          onKeyPress={e => _handleKeyDown(e)}
           onChange={e => handleChange(e.target.value)}
         />
         <br />
+        <div className="tooltip"></div>
         <input
           className="input inputbtn"
           type="button"
@@ -71,6 +79,12 @@ export default function InputText() {
         />
       </div>
       {url && <ReactPlayer url={url} controls playing />}
+      {error && (
+        <div>
+          <p>Sorry Video not found.</p>
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   );
 }
