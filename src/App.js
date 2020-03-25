@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import "./App.css";
+import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import InputText from "./InputText";
+import InputText from "./inputText";
 
 function App() {
   return (

@@ -1,17 +1,36 @@
 $primary: #102248;
 $danger: #2c64d4;
+$input-focus-box-shadow-size: 0;
+$input-shadow: 0;
+$box-radius: 0px;
 body {
   margin: 0;
   padding: 0;
   font-family: "Lato", sans-serif;
   max-height: 450px;
   max-width: 700px;
+  filter: drop-shadow(8px 8px 20px gray);
 }
 .top {
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+  position: relative;
   padding-top: 10px;
-  border-bottom: solid 2px $danger;
+  border-bottom: solid 1px #fff;
+
+  .text {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-align: center;
+  }
 }
+
 .titletext {
   font-size: 18px;
   color: #ffffff;
@@ -27,18 +46,31 @@ body {
     margin-right: auto;
   }
   .inputtext {
+    border-color: #fff;
+    border: 0px solid $danger !important;
     width: 150px;
+
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
   }
   .inputbtn {
     width: 60px;
+    justify-content: center;
+    border: 0 solid #fff !important;
+    font-weight: bold;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  input[value] {
+    margin: auto;
+    height: 40px;
+    line-height: 0 !important;
+    padding-top: 10px;
+    font-size: 30px !important;
   }
 }
 
@@ -55,6 +87,8 @@ body {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    border: solid 1px #fff;
+    box-sizing: content-box;
   }
 }
 @import "~bulma/bulma.sass";

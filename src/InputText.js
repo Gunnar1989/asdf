@@ -6,6 +6,8 @@ import "firebase/storage";
 import "firebase/firestore";
 import "firebase/database";
 import axios from "axios";
+import ReactTooltip from "react-tooltip";
+import Logo from "./logo.png";
 
 const firebaseConfig = {
   apiKey: "AIzaSyATj2GKyLdfDr44kzW0pRLzyNxkBLeTK6E",
@@ -21,8 +23,14 @@ export default function InputText() {
   const [code, setCode] = useState("");
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
   const handleChange = text => {
     setCode(text);
+    if (text.length === 4) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
   };
   const _handleKeyDown = e => {
     if (e.key === "Enter") {
@@ -33,41 +41,42 @@ export default function InputText() {
   };
   const query = async code => {
     setUrl();
-    setError();
-    console.log("hello");
-
-    axios
-      .post(`https://vitasim.dk/helloworld/query.php?accessID=${code}`, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(async res => {
-        if (!firebase.apps.length) {
-          firebase.initializeApp(firebaseConfig);
-        }
-        const storage = firebase.storage();
-        await storage
-          .ref("/")
-          .child(res.data.storageID + res.data.filetype)
-          .getDownloadURL()
-          .then(url => {
-            setUrl(url);
-            setError();
-          })
-          .catch(err => {
-            console.log("Error: " + err);
-            setError(err);
-          });
-      })
-      .catch(err => {
-        setError("Video Not Found");
-        console.log("Error: " + err);
-      });
+    if (code.length > 4 || code.length <= 3) {
+      setError("Code should be 4 characters");
+    } else {
+      axios
+        .post(`https://vitasim.dk/helloworld/query.php?accessID=${code}`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(async res => {
+          if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+          }
+          const storage = firebase.storage();
+          await storage
+            .ref("/")
+            .child(res.data.storageID + res.data.filetype)
+            .getDownloadURL()
+            .then(url => {
+              setUrl(url);
+              setError();
+            })
+            .catch(err => {
+              console.log("Error: " + err);
+              setError(err);
+            });
+        })
+        .catch(err => {
+          setError("Video Not Found");
+          console.log("Error: " + err);
+        });
+    }
   };
 
   return (
-    <div className="inputwindow has-background-primary  ">
+    <div className="inputwindow box has-background-primary  ">
       <div className="top ">
         <input
           className="input inputtext "
@@ -77,19 +86,25 @@ export default function InputText() {
           onChange={e => handleChange(e.target.value)}
         />
         <input
-          className="inputbtn button is-danger"
+          className={
+            show ? "inputbtn button is-success" : "inputbtn button is-danger"
+          }
           type="button"
-          value="Play"
+          value=">"
           onClick={async () => await query(code)}
         />
+        <div className="text">
+          <p data-tip="Enter 4 letter code and press Play">i</p>
+          <ReactTooltip />
+        </div>
       </div>
       <div className="has-background-primary content">
         {url && !error ? (
           <ReactPlayer url={url} id="video" controls playing />
         ) : (
           <>
+            <img src={Logo} />
             <p className="titletext">{error}</p>
-            <img src="https://www.vitasim.dk/wp-content/uploads/2019/11/Discord-logo@300x.png" />
           </>
         )}
       </div>
