@@ -54,6 +54,11 @@ export default function InputText() {
           if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
           }
+
+          await firebase
+            .auth()
+            .signInWithEmailAndPassword("user@vitasim.dk", "Vitasim2020");
+
           const storage = firebase.storage();
           await storage
             .ref("/")
