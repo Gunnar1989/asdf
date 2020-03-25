@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import InputText from "./InputText.js";
 
