@@ -22,6 +22,8 @@ const firebaseConfig = {
 export default function InputText() {
   const [code, setCode] = useState("");
   const [url, setUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const handleChange = text => {
@@ -66,6 +68,8 @@ export default function InputText() {
             .getDownloadURL()
             .then(url => {
               setUrl(url);
+              setTitle(res.data.name);
+              setDescription(res.data.Description);
               setError();
             })
             .catch(err => {
@@ -100,12 +104,16 @@ export default function InputText() {
         />
         <div className="text">
           <p data-tip="Enter 4 letter code and press Play">i</p>
-          <ReactTooltip />
+          <ReactTooltip place="left" />
         </div>
       </div>
       <div className="has-background-primary content">
         {url && !error ? (
-          <ReactPlayer url={url} id="video" controls playing />
+          <>
+            <p className="titletext pad-top is-pulled-left">Name: {title}</p>
+            <ReactPlayer url={url} id="video" controls playing />
+            <p className="titletext is-pulled-left">{description}</p>
+          </>
         ) : (
           <>
             <img src={Logo} />
