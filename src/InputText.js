@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -28,6 +28,15 @@ export default function InputText() {
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   let { id } = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      if (id) {
+        query(id);
+      }
+    }
+    fetchData();
+  }, []);
 
   const handleChange = text => {
     setCode(text);
@@ -91,7 +100,7 @@ export default function InputText() {
     <>
       {id ? (
         <div>
-          <ReactPlayer url={id} id="video" controls playing />
+          <ReactPlayer url={url} id="video" controls playing />
         </div>
       ) : (
         <div className="inputwindow box has-background-primary  ">
