@@ -8,6 +8,7 @@ import "firebase/database";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import Logo from "./logo.png";
+import { useParams, Link } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyATj2GKyLdfDr44kzW0pRLzyNxkBLeTK6E",
@@ -26,6 +27,8 @@ export default function InputText() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  let { id } = useParams();
+
   const handleChange = text => {
     setCode(text);
     if (text.length === 4) {
@@ -85,42 +88,54 @@ export default function InputText() {
   };
 
   return (
-    <div className="inputwindow box has-background-primary  ">
-      <div className="top ">
-        <input
-          className="input inputtext "
-          type="text"
-          placeholder="Code"
-          onKeyPress={e => _handleKeyDown(e)}
-          onChange={e => handleChange(e.target.value)}
-        />
-        <input
-          className={
-            show ? "inputbtn button is-success" : "inputbtn button is-danger"
-          }
-          type="button"
-          value=">"
-          onClick={async () => await query(code)}
-        />
-        <div className="text">
-          <p data-tip="Enter 4 letter code and press Play">i</p>
-          <ReactTooltip place="left" />
+    <>
+      {id ? (
+        <div>
+          <ReactPlayer url={id} id="video" controls playing />
         </div>
-      </div>
-      <div className="has-background-primary content">
-        {url && !error ? (
-          <>
-            <p className="titletext pad-top is-pulled-left">Name: {title}</p>
-            <ReactPlayer url={url} id="video" controls playing />
-            <p className="titletext is-pulled-left">{description}</p>
-          </>
-        ) : (
-          <>
-            <img src={Logo} />
-            <p className="titletext">{error}</p>
-          </>
-        )}
-      </div>
-    </div>
+      ) : (
+        <div className="inputwindow box has-background-primary  ">
+          <div className="top ">
+            <input
+              className="input inputtext "
+              type="text"
+              placeholder="Code"
+              onKeyPress={e => _handleKeyDown(e)}
+              onChange={e => handleChange(e.target.value)}
+            />
+            <input
+              className={
+                show
+                  ? "inputbtn button is-success"
+                  : "inputbtn button is-danger"
+              }
+              type="button"
+              value=">"
+              onClick={async () => await query(code)}
+            />
+            <div className="text">
+              <p data-tip="Enter 4 letter code and press Play">i</p>
+              <ReactTooltip place="left" />
+            </div>
+          </div>
+          <div className="has-background-primary content">
+            {url && !error ? (
+              <>
+                <p className="titletext pad-top is-pulled-left">
+                  Name: {title}
+                </p>
+                <ReactPlayer url={url} id="video" controls playing />
+                <p className="titletext is-pulled-left">{description}</p>
+              </>
+            ) : (
+              <>
+                <img src={Logo} />
+                <p className="titletext">{error}</p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

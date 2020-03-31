@@ -8,6 +8,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={InputText} />
+          <Route path="/:id" children={<InputText />} />
         </Switch>
       </Router>
     </div>
