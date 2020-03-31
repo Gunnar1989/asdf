@@ -8,7 +8,8 @@ import "firebase/database";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import Logo from "./logo.png";
-import { useParams, Link } from "react-router-dom";
+import Vita from "./vita.png";
+import { useParams } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyATj2GKyLdfDr44kzW0pRLzyNxkBLeTK6E",
@@ -99,8 +100,16 @@ export default function InputText() {
   return (
     <>
       {id ? (
-        <div>
-          <ReactPlayer url={url} id="video" controls playing />
+        <div className="bg content">
+          <div className="padding-black blacktitle">
+            <ReactPlayer url={url} id="video" controls playing />
+            <p>{title}</p>
+            <p>Description: </p>
+            <p>{description}</p>
+          </div>
+          <div className="logo-text">
+            Powered By: <img src={Vita} width="100px" />
+          </div>
         </div>
       ) : (
         <div className="inputwindow box has-background-primary  ">
@@ -127,7 +136,7 @@ export default function InputText() {
               <ReactTooltip place="left" />
             </div>
           </div>
-          <div className="has-background-primary content">
+          <div className="has-background-primary content-top">
             {url && !error ? (
               <>
                 <p className="titletext pad-top is-pulled-left">

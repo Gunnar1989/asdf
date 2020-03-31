@@ -1,5 +1,6 @@
 $primary: #102248;
 $danger: #2c64d4;
+$gray: #dce2ea;
 $input-focus-box-shadow-size: 0;
 $input-shadow: 0;
 $box-radius: 0px;
@@ -10,8 +11,14 @@ body {
   max-height: 450px;
   max-width: 700px;
 }
+.small {
+  height: 50px;
+}
 .pad-top {
   padding: 10px 0 10px;
+}
+.bg {
+  background-color: $gray !important;
 }
 .top {
   padding-bottom: 15px;
@@ -76,7 +83,7 @@ body {
   }
 }
 
-.content {
+.content-top {
   text-align: center !important;
   position: relative;
   height: 450px;
@@ -84,6 +91,7 @@ body {
   img {
     height: 400px;
   }
+
   #video {
     left: 50%;
     position: absolute;
@@ -91,6 +99,25 @@ body {
     transform: translate(-50%, -50%);
     border: solid 1px #fff;
     box-sizing: content-box;
+  }
+}
+.content {
+  position: relative;
+  height: 550px;
+  width: 750px;
+  .logo-text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  .padding-black {
+    padding: 20px 0 0 50px;
+  }
+  .blacktitle {
+    position: relative;
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
   }
 }
 @import "~bulma/bulma.sass";
