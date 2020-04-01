@@ -104,8 +104,12 @@ export default function InputText() {
           <div className="padding-black blacktitle">
             <ReactPlayer url={url} id="video" controls playing />
             <p>{title}</p>
-            <p>Description: </p>
-            <p>{description}</p>
+            {description && (
+              <>
+                <p>Description: </p>
+                <p>{description}</p>
+              </>
+            )}
           </div>
           <div className="logo-text">
             Powered By: <img src={Vita} width="100px" />
