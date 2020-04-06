@@ -18,7 +18,7 @@ const firebaseConfig = {
   projectId: "vitasim-platform-01",
   storageBucket: "vitasim-platform-01.appspot.com",
   messagingSenderId: "471171188739",
-  appId: "1:471171188739:web:a3024421c2b53fa4756636"
+  appId: "1:471171188739:web:a3024421c2b53fa4756636",
 };
 
 export default function InputText() {
@@ -39,7 +39,7 @@ export default function InputText() {
     fetchData();
   }, []);
 
-  const handleChange = text => {
+  const handleChange = (text) => {
     setCode(text);
     if (text.length === 4) {
       setShow(true);
@@ -47,14 +47,14 @@ export default function InputText() {
       setShow(false);
     }
   };
-  const _handleKeyDown = e => {
+  const _handleKeyDown = (e) => {
     if (e.key === "Enter") {
       query(code);
     } else {
       return;
     }
   };
-  const query = async code => {
+  const query = async (code) => {
     setUrl();
     if (code.length > 4 || code.length <= 3) {
       setError("Code should be 4 characters");
@@ -62,10 +62,10 @@ export default function InputText() {
       axios
         .post(`https://vitasim.dk/helloworld/query.php?accessID=${code}`, {
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         })
-        .then(async res => {
+        .then(async (res) => {
           if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
           }
@@ -79,18 +79,18 @@ export default function InputText() {
             .ref("/")
             .child(res.data.storageID + res.data.filetype)
             .getDownloadURL()
-            .then(url => {
+            .then((url) => {
               setUrl(url);
               setTitle(res.data.name);
               setDescription(res.data.Description);
               setError();
             })
-            .catch(err => {
+            .catch((err) => {
               console.log("Error: " + err);
               setError(err);
             });
         })
-        .catch(err => {
+        .catch((err) => {
           setError("Video Not Found");
           console.log("Error: " + err);
         });
@@ -122,8 +122,8 @@ export default function InputText() {
               className="input inputtext "
               type="text"
               placeholder="Code"
-              onKeyPress={e => _handleKeyDown(e)}
-              onChange={e => handleChange(e.target.value)}
+              onKeyPress={(e) => _handleKeyDown(e)}
+              onChange={(e) => handleChange(e.target.value)}
             />
             <input
               className={
@@ -143,9 +143,7 @@ export default function InputText() {
           <div className="has-background-primary content-top">
             {url && !error ? (
               <>
-                <p className="titletext pad-top is-pulled-left">
-                  Name: {title}
-                </p>
+                <p className="titletext pad-top is-pulled-left">{title}</p>
                 <ReactPlayer url={url} id="video" controls playing />
                 <p className="titletext is-pulled-left">{description}</p>
               </>
